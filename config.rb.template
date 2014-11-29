@@ -1,1 +1,6 @@
+REDIRECT_TO = "127.0.0.1"
 
+BLOCK_LIST = [
+  "www.reddit.com",
+  "www.cnn.com"
+]

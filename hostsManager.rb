@@ -1,11 +1,36 @@
 require_relative "config.rb"
 
-def enableBlocking 
+HOSTS_PATH = "/etc/hosts"
 
+def enableBlocking 
+  hostsFile = openHostsFile()
+
+  BASE_ENTRIES.each do |baseEntry|
+    hostsFile.puts("%s %s" % [baseEntry[0], baseEntry[1]])
+  end
+
+  BLOCK_LIST.each do |blockEntry|
+    hostsFile.puts("%s %s" % [REDIRECT_TO, blockEntry])
+  end
+
+  system("pkill %s" % (BROWSER_BIN))
 end
 
 def disableBlocking
+  hostsFile = openHostsFile()
 
+  BASE_ENTRIES.each do |baseEntry|
+    hostsFile.puts("%s %s" % [baseEntry[0], baseEntry[1]])
+  end
+end
+
+def openHostsFile
+  begin
+    return File.open(HOSTS_PATH, "w+")
+  rescue Errno::EACCES
+    puts "ERROR: Could not open hosts file, are you running as sudo?"
+    exit 1
+  end
 end
 
 if ARGV.length != 1

@@ -5,9 +5,7 @@ HOSTS_PATH = "/etc/hosts"
 def enableBlocking 
   hostsFile = openHostsFile()
 
-  BASE_ENTRIES.each do |baseEntry|
-    hostsFile.puts("%s %s" % [baseEntry[0], baseEntry[1]])
-  end
+  hostFile.puts(BASE_ENTRIES)
 
   BLOCK_LIST.each do |blockEntry|
     hostsFile.puts("%s %s" % [REDIRECT_TO, blockEntry])
@@ -16,12 +14,10 @@ def enableBlocking
   system("pkill %s" % (BROWSER_BIN))
 end
 
+
 def disableBlocking
   hostsFile = openHostsFile()
-
-  BASE_ENTRIES.each do |baseEntry|
-    hostsFile.puts("%s %s" % [baseEntry[0], baseEntry[1]])
-  end
+  hostFile.puts(BASE_ENTRIES)
 end
 
 def openHostsFile

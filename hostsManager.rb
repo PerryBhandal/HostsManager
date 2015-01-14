@@ -5,7 +5,7 @@ HOSTS_PATH = "/etc/hosts"
 def enableBlocking 
   hostsFile = openHostsFile()
 
-  hostFile.puts(BASE_ENTRIES)
+  hostsFile.puts(BASE_ENTRIES)
 
   BLOCK_LIST.each do |blockEntry|
     hostsFile.puts("%s %s" % [REDIRECT_TO, blockEntry])
@@ -17,7 +17,7 @@ end
 
 def disableBlocking
   hostsFile = openHostsFile()
-  hostFile.puts(BASE_ENTRIES)
+  hostsFile.puts(BASE_ENTRIES)
 end
 
 def openHostsFile
